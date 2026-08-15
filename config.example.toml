@@ -1,0 +1,50 @@
+# MNQ Signal System Configuration Example
+# Copy this file to config.toml and modify your parameters.
+
+[connection]
+host = "127.0.0.1"
+port = 7497              # TWS Paper: 7497 | TWS Live: 7496 | Gateway Paper: 4002 | Gateway Live: 4001
+client_id = 10
+timeout = 15
+
+[contract]
+symbol = "MNQ"           # Micro E-mini Nasdaq-100 Futures
+exchange = "CME"
+currency = "USD"
+expiry = ""              # Leave empty to automatically detect the front-month contract (e.g. 20240920)
+
+[frvp]
+tick_size = 0.25
+value_area_pct = 0.70    # 70% standard Value Area
+algorithm = "steidlmayer_2bin"  # 'steidlmayer_2bin' (classic CBOT) or 'greedy_1bin'
+overnight_start_hour = 18
+overnight_start_min = 0
+overnight_end_hour = 9
+overnight_end_min = 30
+
+[orderflow]
+big_trade_threshold = 200            # Base threshold in contracts
+dynamic_threshold_enabled = true     # Dynamically adapt threshold to market regime
+dynamic_threshold_percentile = 95    # Rolling 95th percentile
+dynamic_threshold_window = 300       # Last N trades
+
+# Absorption Detection
+absorption_lookback_bars = 3
+absorption_imbalance_ratio = 2.5     # Buy/Sell volume ratio for absorption
+absorption_price_proximity_ticks = 8 # Proximity to VAH/VAL (in ticks)
+
+[signal]
+cooldown_after_open_secs = 300       # 5-minute cool-down after 09:30 ET cash open
+sl_buffer_ticks = 3                  # Stop Loss buffer in ticks
+auto_trade_enabled = false           # Set to true to enable automated 3-legged bracket order execution
+auto_trade_quantity = 1              # Order quantity in contracts
+min_confidence_score = 60            # Minimum confidence score (0-100) to trigger alerts/orders
+
+[webhook]
+telegram_enabled = false
+telegram_bot_token = ""              # Telegram Bot Token from @BotFather
+telegram_chat_id = ""                # Target chat/channel ID
+
+[dashboard]
+refresh_fps = 4                      # Terminal dashboard refresh rate
+max_signal_log_rows = 15

@@ -1,0 +1,14 @@
+[project]
+name = "mnq-signal-system"
+version = "1.0.0"
+description = "MNQ Overnight Volume Profile Signal System — IBKR Tick-by-Tick Order Flow Analysis"
+requires-python = ">=3.12"
+dependencies = [
+    "ib_async>=1.0.0",
+    "numpy>=1.26",
+    "rich>=13.0",
+    "aiohttp>=3.9",
+]
+
+[project.scripts]
+mnq-signals = "main:run"
